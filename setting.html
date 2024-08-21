@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Party Wizard - setting</title>
+
+    <!-- === Favicon === -->
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo_out_text.svg">
+    <!-- === End Favicon === -->
+
+    <!-- === Css === -->
+    <link rel="stylesheet" href="assets/css/custoum.css">
+    <!-- === End css === -->
+
+    <!-- === Tailwind CSS === -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- === End Tailwind CSS === -->
+
+    <!-- === Flowbite === -->
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+    <!-- === End Flowbite === -->
+
+    <!-- === Fontawesome === -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- === End Fontawesome === -->
+
+    <!-- === Google Fonts Inter === -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <!-- === End Google Fonts Inter === -->
+
+    <!-- === Owl Carousel CSS === -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/assets/owl.theme.default.min.css">
+    <!-- === End Owl Carousel CSS === -->
+
+    <!-- === pagedone === -->
+    <link href="https://cdn.jsdelivr.net/npm/pagedone@1.1.2/src/css/pagedone.css" />
+    <!-- === end pagedone === -->
+
+</head>
+
+<body class="bg-gray-50 ">
+    <div class="container mx-auto max-w-screen-xl ">
+        <!-- === Navigation === -->
+        <header>
+            <!-- Sidebar -->
+            <aside id="default-sidebar"
+                class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 bg-white"
+                aria-label="Sidebar">
+                <div class="h-full px-2 py-4 overflow-y-auto  bg-white">
+                    <ul class="space-y-2 font-medium">
+                        <li class="mb-5">
+                            <img src="./assets/images/logo.svg" alt="" class="w-40 ">
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center bg-gray-100  p-2 text-custom-orange rounded-lg hover:bg-gray-100 duration-300 text-sm  group">
+
+                                <img class="w-9 h-9 p-2 rounded-lg bg-custom-orange  text-white"
+                                    src="assets/images/Vector.svg" alt="" srcset="">
+
+                                <span class="ms-3">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center bg-none  p-2 text-custom-orange rounded-lg hover:bg-gray-100 duration-300 text-sm  group">
+
+                                <img class="w-9 h-9 p-2 " src="assets/images/Vector2.svg" alt="" srcset="">
+
+                                <span class="ms-3 text-gray-400">Wishlist</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center bg-none p-2 text-custom-orange rounded-lg hover:bg-gray-100 duration-300 text-sm group">
+                                <img class="w-9 h-9 p-2" src="assets/images/Vector3.svg" alt="History Icon">
+                                <span class="ms-3 text-gray-400">History</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#"
+                                class="flex items-center bg-none p-2 text-custom-orange rounded-lg hover:bg-gray-100 duration-300 text-sm group">
+                                <img class="w-9 h-9 p-2" src="assets/images/Vector5.svg" alt="Promotion Icon">
+                                <span class="ms-3 text-gray-400">Promotion</span>
+                            </a>
+                        </li>
+                        <hr>
+
+                        <li>
+                            <a href="#"
+                                class="flex items-center bg-none p-2 text-custom-orange rounded-lg hover:bg-gray-100 duration-300 text-sm group">
+                                <img class="w-9 h-9 p-2" src="assets/images/Vector6.svg" alt="Profile Icon">
+                                <span class="ms-3 text-gray-400">Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center bg-none p-2 text-custom-orange rounded-lg hover:bg-gray-100 duration-300 text-sm group">
+                                <img class="w-9 h-9 p-2" src="assets/images/Vector7.svg" alt="Settings Icon">
+                                <span class="ms-3 text-gray-400">Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#"
+                                class="flex items-center bg-none p-2 text-custom-orange rounded-lg hover:bg-gray-100 duration-300 text-sm group">
+                                <img class="w-9 h-9 p-2" src="assets/images/Vector8.svg" alt="Report Icon">
+                                <span class="ms-3 text-gray-400">Report</span>
+                            </a>
+                        </li>
+
+                        <li style="bottom: 30px;" class="absolute w-full">
+                            <a href="#" class="flex items-center justify-center ">
+                                <span class="ms-3 text-red-500 text-center">Log Out</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </aside>
+
+            <div class="sm:ml-64 mlcustom">
+                <nav class="bg-gray-50 border-gray-200 ">
+                    <div class="flex flex-wrap items-center justify-between mx-auto px-4 pt-2.5 mt-3 ">
+
+                        <div class="flex md:order-1 sm:hidden">
+                            <img src="assets/images/logo.svg" alt="" srcset="">
+
+                        </div>
+
+                        <div class="flex gap-3 md:hidden">
+
+                            <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
+                                aria-controls="default-sidebar" type="button"
+                                class="inline-flex items-center  text-2xl text-gray-400 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                                <span class="sr-only">Open sidebar</span>
+                                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path clip-rule="evenodd" fill-rule="evenodd"
+                                        d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+                                    </path>
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                </nav>
+            </div>
+
+        </header>
+
+        <main>
+            <div class="sm:ml-64 mlcustom">
+                <div class=" px-4 pt-2.5 mt-3 flex items-start allmaindivs ">
+
+                    <div class="main-content bg-white  h-auto me-5 rounded-lg  p-4 w-screen">
+                        <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl">General Settings
+                        </h2>
+
+                        <div class="mb-4 border-b border-gray-200 mt-5">
+                            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
+                                data-tabs-toggle="#default-tab-content" role="tablist">
+                                <li class="me-2" role="presentation">
+                                    <button
+                                        class="inline-flex items-center p-4 border-b-2 rounded-t-lg tab-button text-custom-orange active"
+                                        id="faq-tab" data-tabs-target="#faq" type="button" role="tab"
+                                        aria-controls="faq" aria-selected="true">
+                                        <i class="fas fa-info-circle me-2"></i> Basic Information
+                                    </button>
+                                </li>
+                                <li class="me-2" role="presentation">
+                                    <button class="inline-flex items-center p-4 border-b-2 rounded-t-lg tab-button"
+                                        id="privacy-policy-tab" data-tabs-target="#privacy-policy" type="button"
+                                        role="tab" aria-controls="privacy-policy" aria-selected="false">
+                                        <i class="fas fa-lock me-2"></i> Security
+                                    </button>
+                                </li>
+
+                                <li role="presentation">
+                                    <button class="inline-flex items-center p-4 border-b-2 rounded-t-lg tab-button"
+                                        id="contact-us-tab" data-tabs-target="#contact-us" type="button" role="tab"
+                                        aria-controls="contact-us" aria-selected="false">
+                                        <i class="fas fa-bell me-2"></i> Notification
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="default-tab-content">
+
+                            <!-- general -->
+                            <div class="hidden  rounded-lg" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+
+                                <div class="w-full max-w-7xl  md:px-5 lg:px-5">
+
+                                    <div class="profileuserimage flex items-center  sm:gap-16 my-7">
+                                        <li class="relative">
+                                            <a href="#"
+                                                class="flex items-center gap-2 py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-custom-blue md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+                                                <div
+                                                    class="rounded-full w-12 h-12 bg-gray-200 flex items-center justify-center">
+                                                    <img class="w-7 h-7" src="assets/images/Icon feather-user(1).svg"
+                                                        alt="" srcset="">
+                                                </div>
+                                                <span class="text-lg text-gray-500 ps-2 font-semibold">user name</span>
+                                            </a>
+                                        </li>
+
+                                        <div class=" gap-3 grid ">
+
+                                            <div class="grid gap-2">
+                                                <div class="flex items-center justify-center">
+                                                    <span>
+                                                        <input type="file" hidden />
+                                                        <div
+                                                            class="flex w-36 h-9 px-2 flex-col bg-none rounded-full  border-custom-orange-upload  text-custom-orange text-xs font-semibold leading-4 items-center justify-center cursor-pointer focus:outline-none">
+                                                            Upload new picture</div>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-3 w-full mb-6 mt-12">
+                                        <!-- Adjusted span width for better alignment -->
+                                        <span class="font-medium text-gray-400 text-sm w-1/8">Delivery Details</span>
+
+                                        <!-- Ensure hr takes up the remaining space -->
+                                        <hr class="flex-1 h-px bg-gray-200 border-0">
+                                    </div>
+
+                                    <form action="" class="">
+                                        <div class="flex flex-col sm:flex-row gap-6 mb-6">
+                                            <div class="w-full relative">
+                                                <span class="flex items-center mb-2 text-gray-600 text-sm font-medium">
+                                                    Full Name
+
+                                                </span>
+                                                <input type="text" id="full-name"
+                                                    class="block w-full h-11 px-5 py-2.5  leading-7 text-sm font-normal  text-gray-500 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none"
+                                                    placeholder="Your Name" required>
+                                            </div>
+                                            <div class="w-full relative">
+                                                <span class="flex items-center mb-2 text-gray-600 text-sm font-medium">
+                                                    Email Address
+
+                                                </span>
+                                                <input type="email" id="email-address"
+                                                    class="block w-full h-11 px-5 py-2.5  leading-7 text-sm font-normal  text-gray-500 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none"
+                                                    placeholder="Example@gmail.com" required>
+                                            </div>
+                                            <div class="w-full relative mb-6">
+                                                <span class="flex items-center mb-2 text-gray-600 text-sm font-medium">
+                                                    Phone Number
+
+                                                </span>
+                                                <input type="tel" id="phone-number"
+                                                    class="block w-full h-11 px-5 py-2.5  leading-7 text-sm font-normal  text-gray-500 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none"
+                                                    placeholder="+12 3456 7890" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-center gap-3 w-full mb-6 mt-5">
+                                            <!-- Adjusted span width for better alignment -->
+                                            <span class="font-medium text-gray-400 text-sm w-1/8">Billing Address</span>
+
+                                            <!-- Ensure hr takes up the remaining space -->
+                                            <hr class="flex-1 h-px bg-gray-200 border-0">
+                                        </div>
+
+                                        <div class="flex flex-col sm:flex-row gap-6 mb-6">
+                                            <div class="w-full relative">
+                                                <span class="flex items-center mb-2 text-gray-600 text-sm font-medium">
+                                                    Country
+                                                </span>
+                                                <input type="text"
+                                                    id="country"
+                                                    autocomplete="off"
+                                                    name="country"
+                                                    class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal text-gray-500 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none"
+                                                    placeholder="Your Country" required>
+                                            </div>
+                                            <div class="w-full relative">
+                                                <span class="flex items-center mb-2 text-gray-600 text-sm font-medium">
+                                                    City
+                                                </span>
+                                                <input type="text" id="city"
+                                                    class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal text-gray-500 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none"
+                                                    placeholder="Your City" required>
+                                            </div>
+                                            <div class="w-full relative mb-6">
+                                                <span class="flex items-center mb-2 text-gray-600 text-sm font-medium">
+                                                    Province
+                                                </span>
+                                                <input type="text" id="province"
+                                                    class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal text-gray-500 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none"
+                                                    placeholder="Your Province" required>
+                                            </div>
+                                        </div>
+
+                                        <button type="button"
+                                            class="flex items-center justify-center rounded-full bg-custom-orange px-14 py-3 text-md font-medium text-white shadow-custom  hover:bg-orange-700 focus:outline-none focus:ring-none">
+                                            Save Changes
+                                        </button>
+
+                                    </form>
+
+                                </div>
+                                </section>
+
+                            </div>
+
+                            <!-- Password -->
+                            <div class="hidden p-4 rounded-lg" id="privacy-policy" role="tabpanel"
+                                aria-labelledby="privacy-policy-tab">
+
+                                <form action="" class="">
+                                    <div class="flex items-center gap-3 w-full mb-6 mt-5">
+                                        <!-- Adjusted span width for better alignment -->
+                                        <span class="font-medium text-gray-400 text-sm w-1/8">Password</span>
+
+                                        <!-- Ensure hr takes up the remaining space -->
+                                        <hr class="flex-1 h-px bg-gray-200 border-0">
+                                    </div>
+
+                                    <div class="flex flex-col gap-6 mb-6 w-1/2">
+                                        <div class="w-full relative">
+                                            <span class="flex items-center mb-2 text-gray-600 text-sm font-medium">
+                                                Old Password
+                                            </span>
+                                            <input type="password" id="old-password"
+                                                class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal text-gray-500 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none"
+                                                placeholder="Input your old password" required>
+                                        </div>
+                                        <div class="w-full relative">
+                                            <span class="flex items-center mb-2 text-gray-600 text-sm font-medium">
+                                                New Password
+                                            </span>
+                                            <input type="password" id="new-password"
+                                                class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal text-gray-500 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none"
+                                                placeholder="Input your new password" required>
+                                            <p class="text-xs text-gray-400 mt-1 ps-2 ">Min 8 Characters , letters and
+                                                numbers</p>
+                                        </div>
+                                        <div class="w-full relative mb-6">
+                                            <span class="flex items-center mb-2 text-gray-600 text-sm font-medium">
+                                                Confirm New Password
+                                            </span>
+                                            <input type="password" id="confirm-new-password"
+                                                class="block w-full h-11 px-5 py-2.5 leading-7 text-sm font-normal text-gray-500 bg-transparent border border-gray-300 rounded-lg placeholder-gray-400 focus:outline-none"
+                                                placeholder="Confirm new password" required>
+                                        </div>
+                                    </div>
+
+                                    <button type="button"
+                                        class="flex items-center justify-center rounded-full bg-custom-orange px-14 py-3 text-md font-medium text-white shadow-custom hover:bg-orange-700 focus:outline-none focus:ring-none">
+                                        Save Changes
+                                    </button>
+                                </form>
+
+                            </div>
+
+                            <!-- notfictions -->
+                            <div class="hidden p-4 rounded-lg w-full" id="contact-us" role="tabpanel"
+                                aria-labelledby="contact-us-tab">
+
+                                <div class="flex flex-col-reverse gap-8 items-start justify-between w-full ">
+
+                                    <form action="#" class="space-y-8  w-full md:w-2/3     pe-10">
+                                        <div class="flex items-center justify-between border-b-2 pb-5 pb-5">
+                                          
+                                            <div class="flex flex-col gap-2  ">
+                                                <span class="text-md font-semibold text-gray-900" >
+                                                    Product updates
+                                                </span>
+    
+                                                <span class="text-sm font-normal text-gray-500" >
+                                                    Receive a notification about updates on the products you are interested in   
+                                                  </span>
+                                            </div>
+
+                                            <div>
+                                                <span class="switch modern-switch">
+                                                    <input type="checkbox" name="one">
+                                                    <span class="slider round"></span>
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                    <form action="#" class="space-y-8  w-full md:w-2/3     pe-10">
+                                        <div class="flex items-center justify-between border-b-2 pb-5  ">
+                                          
+                                            <div class="flex flex-col gap-2  ">
+                                                <span class="text-md font-semibold text-gray-900" >
+                                                    Comments
+                                                </span>
+    
+                                                <span class="text-sm font-normal text-gray-500" >
+                                                    Receive a notification whenever someone makes a comment on a product you are interested in
+                                                </span>
+                                            </div>
+
+                                            <div>
+                                                <span class="switch modern-switch">
+                                                    <input type="checkbox" name="two">
+                                                    <span class="slider round"></span>
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                    <form action="#" class="space-y-8  w-full md:w-2/3  pe-10 ">
+                                        <div class="flex items-center justify-between border-b-2 pb-5">
+                                          
+                                            <div class="flex flex-col gap-2  ">
+                                                <span class="text-md font-semibold text-gray-900" >
+                                                    Checkout Product
+                                                </span>
+    
+                                                <span class="text-sm font-normal text-gray-500" >
+                                                    Receive a notification whenever you make a successful checkout                                                  </span>
+                                            </div>
+
+                                            <div>
+                                                <span class="switch modern-switch">
+                                                    <input type="checkbox" name="three">
+                                                    <span class="slider round"></span>
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+    <!-- === End Navigation === -->
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- === End jQuery === -->
+
+    <!-- === Flowbite JS === -->
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <!-- === End Flowbite JS === -->
+
+    <!-- === Custom JS === -->
+
+    <!-- === Carousel === -->
+    <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
+    <script src="assets/js/carousel.js"></script>
+    <!-- === End Carousel === -->
+
+    <script src="assets/js/tabs.js"></script>
+    <!-- === End Custom JS === -->
+
+</body>
+
+</html>
