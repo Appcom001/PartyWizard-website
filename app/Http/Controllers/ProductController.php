@@ -1,38 +1,81 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\ProductReview;
 use App\Models\Product;
 use App\Models\Brand;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Coupon;
 
 class ProductController extends Controller
 {
-    /**
-     * عرض جميع المنتجات.
-     *
-     * @return \Illuminate\View\View
-     */
+    // Display all products
     public function index()
     {
         $products = Product::all();
+        
+        if (request()->ajax()) {
+            $products = $products->map(function($product) {
+                return [
+                    'id' => $product->id,
+                    'title' => $product->title,
+                    'average_rating' => $product->average_rating, 
+                    'photo' => $product->photo,
+                    'revenues' => $product->revenues,
+                    'sales' => $product->sales,
+                    'discount' => $product->discount,
+                    'price' => $product->price,
+                    'stock' => $product->stock,
+                ];
+            });
+    
+            return response()->json(['products' => $products]);
+        }
+    
         return view('admin.products.index', compact('products'));
     }
 
-    /**
-     * عرض تفاصيل منتج محدد.
-     *
-     * @param int $id
-     * @return \Illuminate\View\View
-     */
+    // Search products by title or ID
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        
+        try {
+            $products = Product::where('title', 'LIKE', "%{$query}%")
+                                ->orWhere('id', $query)
+                                ->get()
+                                ->map(function($product) {
+                                    return [
+                                        'id' => $product->id,
+                                        'title' => $product->title,
+                                        'photo' => $product->photo,
+                                        'revenues' => $product->revenues,
+                                        'sales' => $product->sales,
+                                        'discount' => $product->discount,
+                                        'price' => $product->price,
+                                        'stock' => $product->stock,
+                                        'average_rating' => $product->average_rating
+                                    ];
+                                });
+    
+            return response()->json(['products' => $products]);
+        } catch (\Exception $e) {
+            \Log::error('Error fetching products: '.$e->getMessage());
+            return response()->json(['error' => 'Unable to fetch products.'], 500);
+        }
+    }
+
+    // Show product details
     public function show($id)
     {
         $product = Product::with('brand')->findOrFail($id);
+    
         $similarProducts = Product::where('brand_id', $product->brand_id)
             ->where('id', '!=', $id)
-            ->take(4)
             ->get();
     
         $discountedPrice = $this->calculateDiscountedPrice($product);
@@ -49,81 +92,27 @@ class ProductController extends Controller
             'moreReviews' => $reviews['moreReviews']
         ]);
     }
-    
+
+    // Show add product form
     public function add()
     {
-        // Assuming you have Category and Brand models
-        $categories = Category::all();  // Fetch all categories
-        $brands = Brand::all();  // Fetch all brands
+        $categories = Category::all();  
+        $brands = Brand::all();  
         
         return view('admin.products.add', compact('categories', 'brands'));
     }
-    
 
-        /**
-     * تحديث منتج موجود.
-     *
-     * @param Request $request
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, $id)
-    {
-        $product = Product::findOrFail($id);
-        $validatedData = $this->validateProductData($request, $id);
-
-        if ($request->hasFile('photo')) {
-            $this->deleteOldProductImage($product);
-            $validatedData['photo'] = $this->storeProductImage($request->file('photo'));
-        }
-
-        $product->update($validatedData);
-
-        return redirect()->route('products.index')->with('success', 'تم تحديث المنتج بنجاح');
-    }
-
-    
-    /**
-     * حذف منتج.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy($id)
-    {
-        $product = Product::findOrFail($id);
-        $this->deleteOldProductImage($product);
-        $product->delete();
-
-        return redirect()->route('products.index')->with('success', 'تم حذف المنتج بنجاح');
-    }
-
-
-    
-
-    /**
-     * حساب السعر بعد الخصم للمنتج.
-     *
-     * @param Product $product
-     * @return float
-     */
+    // Calculate the discounted price of a product
     private function calculateDiscountedPrice(Product $product): float
     {
         if ($product->discount > 0) {
             $discountAmount = $product->price * ($product->discount / 100);
-            $discountedPrice = $product->price - $discountAmount;
-            return $discountedPrice;
-        } else {
-            return $product->price;
+            return $product->price - $discountAmount;
         }
+        return $product->price;
     }
 
-        /**
-     * حذف صورة المنتج القديمة.
-     *
-     * @param Product $product
-     * @return void
-     */
+    // Delete the old product image from storage
     private function deleteOldProductImage(Product $product): void
     {
         if ($product->photo) {
@@ -131,16 +120,7 @@ class ProductController extends Controller
         }
     }
 
-
-
-    
-    /**
-     * الحصول على تقييمات المنتج.
-     *
-     * @param int $productId
-     * @param int $initialCount
-     * @return array
-     */
+    // Retrieve product reviews
     private function getProductReviews(int $productId, int $initialCount): array
     {
         $reviews = ProductReview::where('product_id', $productId)
@@ -148,7 +128,6 @@ class ProductController extends Controller
             ->latest()
             ->get();
 
-        // استخدام Collection methods
         $reviewsCollection = collect($reviews);
 
         return [
@@ -157,76 +136,153 @@ class ProductController extends Controller
         ];
     }
 
-
-
-
-
-
-
-
-    /**
-     * تخزين منتج جديد.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Store a new product
     public function store(Request $request)
     {
-        $validatedData = $this->validateProductData($request);
-    
-        if ($request->hasFile('photo')) {
-            $validatedData['photo'] = $this->storeProductImage($request->file('photo'));
-        }
-    
-        try {
-            Product::create($validatedData);
-            return redirect()->route('products.index')->with('success', 'تم إنشاء المنتج بنجاح');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'فشل في إنشاء المنتج: ' . $e->getMessage());
-        }
-    }
-    
-
-    /**
-     * التحقق من صحة بيانات المنتج.
-     *
-     * @param Request $request
-     * @param int|null $id
-     * @return array
-     */
-    private function validateProductData(Request $request, ?int $id = null): array
-    {
-        $rules = [
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'summary' => 'required|string|max:255',
             'description' => 'required|string',
-            'weight' => 'nullable|numeric',
-            'color' => 'nullable|string',
+            'weight' => 'required|numeric',
+            'material' => 'required|string',
+            'color' => 'required|string|max:50',
             'category' => 'required|exists:categories,id',
             'brand' => 'required|exists:brands,id',
             'price' => 'required|numeric',
-            'tax' => 'nullable|numeric',
-            'discount' => 'nullable|numeric',
-            'model' => 'nullable|string|max:255',
+            'tax' => 'required|numeric',
+            'discount' => 'required|numeric',
+            'model' => 'required|string|max:100',
             'stock' => 'required|integer',
-            'size' => 'nullable|string|max:255',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ];
-    
-        return $request->validate($rules);
-    }
-    
+            'size' => 'required|string|max:50',
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
 
-    /**
-     * تخزين صورة المنتج.
-     *
-     * @param \Illuminate\Http\UploadedFile $file
-     * @return string
-     */
-    private function storeProductImage($file): string
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $product = new Product();
+        $product->title = $request->input('name');
+        $product->summary = $request->input('summary');
+        $product->description = $request->input('description');
+        $product->product_weight = $request->input('weight');
+        $product->color = $request->input('color');
+        $product->material = $request->input('material');
+        $product->cat_id = $request->input('category');
+        $product->brand_id = $request->input('brand');
+        $product->price = $request->input('price');
+        $product->vat = $request->input('tax');
+        $product->discount = $request->input('discount');
+        $product->model_number = $request->input('model');
+        $product->stock = $request->input('stock');
+        $product->size = $request->input('size');
+    
+        $file = $request->file('photo');
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension(); 
+        $file->storeAs('public/product_images', $filename);
+        $product->photo = $filename; 
+    
+        $product->save();
+    
+        return redirect()->route('admin.products.index')->with('success', 'Product added successfully');
+    }
+
+    // Store a new promo code
+    public function promostore(Request $request)
     {
-        return $file->store('product_images', 'public');
+        $validator = Validator::make($request->all(), [
+            'promo_code' => 'required|string|max:255',
+            'discount' => 'required|numeric|min:0',
+            'type' => 'required|in:percent,fixed',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $coupons = new Coupon();
+            $coupons->code = $request->input('promo_code');
+            $coupons->value = $request->input('discount');
+            $coupons->type = $request->input('type');
+            $coupons->save();
+
+            return redirect()->back()->with('success', 'Promo code generated successfully!');
+        } catch (\Exception $e) {
+            \Log::error('Failed to generate promo code: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to generate promo code. Please try again.');
+        }
     }
 
+    // Show edit form for a product
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('admin.products.edit', compact('product', 'categories', 'brands'));
+    }
 
+    // Update a product
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'summary' => 'required|string|max:255',
+            'description' => 'required|string',
+            'weight' => 'required|numeric',
+            'material' => 'required|string',
+            'color' => 'required|string|max:50',
+            'category' => 'required|exists:categories,id',
+            'brand' => 'required|exists:brands,id',
+            'price' => 'required|numeric',
+            'tax' => 'required|numeric',
+            'discount' => 'required|numeric',
+            'model' => 'required|string|max:100',
+            'stock' => 'required|integer',
+            'size' => 'required|string|max:50',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $product = Product::findOrFail($id);
+        $product->title = $request->input('name');
+        $product->summary = $request->input('summary');
+        $product->description = $request->input('description');
+        $product->product_weight = $request->input('weight');
+        $product->color = $request->input('color');
+        $product->material = $request->input('material');
+        $product->cat_id = $request->input('category');
+        $product->brand_id = $request->input('brand');
+        $product->price = $request->input('price');
+        $product->vat = $request->input('tax');
+        $product->discount = $request->input('discount');
+        $product->model_number = $request->input('model');
+        $product->stock = $request->input('stock');
+        $product->size = $request->input('size');
+    
+        if ($request->hasFile('photo')) {
+            $this->deleteOldProductImage($product); // Delete old image
+            $file = $request->file('photo');
+            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/product_images', $filename);
+            $product->photo = $filename;
+        }
+    
+        $product->save();
+    
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully');
+    }
+
+    // Delete a product
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+        $this->deleteOldProductImage($product); // Delete image
+        $product->delete();
+        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully');
+    }
 }

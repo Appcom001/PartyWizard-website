@@ -7,7 +7,7 @@
     <title>Party Wizard - Create New Password</title>
 
     <!-- === Favicon === -->
-    <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logo_out_text.svg')}}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logo_out_text.svg') }}">
     <!-- === End Favicon === -->
 
     <!-- === Css === -->
@@ -38,46 +38,56 @@
     <div class="container m-auto flex flex-col items-center justify-center">
         <div class="card rounded-lg max-w-md w-full">
             <div class="card-body flex flex-col items-center justify-start gap-3 w-full">
-                <img src="{{asset('assets/images/logo_out_text.svg')}}" alt="Party Wizard Logo" class="mb-3 w-28">
+                <img src="{{ asset('assets/images/logo_out_text.svg') }}" alt="Party Wizard Logo" class="mb-3 w-28">
                 <form method="POST" action="{{ route('password.update') }}" class="w-full">
                     @csrf
-                
+
                     <input type="hidden" name="token" value="{{ $token }}">
-                
+                    <input type="hidden" name="email" value="{{ $email }}">
+
+                    <!-- New Password Field -->
                     <div class="flex mb-4 px-3 mt-9">
-                        <span class="inline-flex items-center px-2 text-sm shadow-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
-                            <img class="w-8 p-2 bg-custoum-orange-50 rounded-md" src="{{ asset('assets/images/loginreg/pass.svg') }}" alt="Password Icon">
+                        <span
+                            class="inline-flex items-center px-2 text-sm shadow-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
+                            <img class="w-8 p-2 bg-custoum-orange-50 rounded-md"
+                                src="{{ asset('assets/images/loginreg/pass.svg') }}" alt="Password Icon">
                         </span>
                         <input type="password" name="password"
-                               class="focus:outline-none shadow-sm focus:ring-0 text-gray-500 border-rad-custom-input border-custom-input bg-white block flex-1 min-w-0 w-full text-sm text-gray-900 p-4 rounded-r-xl @error('password') border-red-500 @enderror"
-                               placeholder="New Password" required>
+                            class="focus:outline-none shadow-sm focus:ring-0 text-gray-500 border-rad-custom-input border-custom-input bg-white block flex-1 min-w-0 w-full text-sm text-gray-900 p-4 rounded-r-xl @error('password') border-red-500 @enderror"
+                            placeholder="New Password" required>
                     </div>
                     @error('password')
                         <div class="text-red-500 text-sm px-3">{{ $message }}</div>
                     @enderror
-                
+
+                    <!-- Confirm Password Field -->
                     <div class="flex mb-4 px-3 mt-9">
-                        <span class="inline-flex items-center px-2 text-sm shadow-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
-                            <img class="w-8 p-2 bg-custoum-orange-50 rounded-md" src="{{ asset('assets/images/loginreg/pass.svg') }}" alt="Confirm Password Icon">
+                        <span
+                            class="inline-flex items-center px-2 text-sm shadow-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
+                            <img class="w-8 p-2 bg-custoum-orange-50 rounded-md"
+                                src="{{ asset('assets/images/loginreg/pass.svg') }}" alt="Confirm Password Icon">
                         </span>
                         <input type="password" name="password_confirmation"
-                               class="focus:outline-none shadow-sm focus:ring-0 text-gray-500 border-rad-custom-input border-custom-input bg-white block flex-1 min-w-0 w-full text-sm text-gray-900 p-4 rounded-r-xl @error('password_confirmation') border-red-500 @enderror"
-                               placeholder="Confirm Password" required>
+                            class="focus:outline-none shadow-sm focus:ring-0 text-gray-500 border-rad-custom-input border-custom-input bg-white block flex-1 min-w-0 w-full text-sm text-gray-900 p-4 rounded-r-xl @error('password_confirmation') border-red-500 @enderror"
+                            placeholder="Confirm Password" required>
                     </div>
                     @error('password_confirmation')
                         <div class="text-red-500 text-sm px-3">{{ $message }}</div>
                     @enderror
-                
+
                     <div class="px-3.5 mt-5">
-                        <button type="submit" class="w-full bg-custom-orange text-white py-3.5 shadow-custom rounded-full hover:bg-orange-600 focus:outline-none">
+                        <button type="submit"
+                            class="w-full bg-custom-orange text-white py-3.5 shadow-custom rounded-full hover:bg-orange-600 focus:outline-none">
                             Save Password
                         </button>
                     </div>
-                
+
                     <div class="text-sm flex justify-center text-gray-500 my-4 mt-6">
-                        <p>Remember your password? <a href="{{ route('login') }}" class="text-custom-orange hover:underline">Log in</a></p>
+                        <p>Remember your password? <a href="{{ route('login') }}"
+                                class="text-custom-orange hover:underline">Log in</a></p>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -93,7 +103,7 @@
     <!-- === Flowbite JS === -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <!-- === End Flowbite JS === -->
-    
+
 
 </body>
 

@@ -37,9 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Get the cart items for the user.
-     */
+
     public function cartItems()
     {
         return $this->hasMany(CartItem::class, 'user_id');

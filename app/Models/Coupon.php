@@ -13,6 +13,5 @@ class Coupon extends Model
         'code',
         'type',
         'value',
-        'status',
     ];
 }

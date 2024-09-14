@@ -10,20 +10,8 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'summary',
-        'description',
-        'photo',
-        'stock',
-        'size',
-        'price',
-        'vat',
-        'discount',
-        'color',
-        'model_number',
-        'product_weight',
-        'cat_id',
-        'brand_id'
+        'title', 'summary', 'description', 'product_weight', 'color', 'material', 'cat_id', 
+        'brand_id', 'price', 'vat', 'discount', 'model_number', 'stock', 'size', 'photo'
     ];
 
     public function brand()
@@ -36,11 +24,6 @@ class Product extends Model
         return $this->hasMany(ProductReview::class);
     }
 
-    /**
-     * حساب متوسط التقييمات للمنتج.
-     *
-     * @return float
-     */
     public function getAverageRatingAttribute()
     {
         $averageRating = $this->reviews()->avg('rate');

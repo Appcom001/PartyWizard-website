@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -10,56 +11,40 @@ use Illuminate\Http\JsonResponse;
 
 class SettingController extends Controller
 {
-    /**
-     * Display the settings page.
-     *
-     * @return \Illuminate\View\View
-     */
+    // Display the settings page
     public function index()
     {
         $user = Auth::user();
         return view('setting', compact('user'));
     }
 
-    /**
-     * Update user profile information.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-// إضافة الحقول الجديدة في الدالة update
-public function update(Request $request)
-{
-    $user = Auth::user();
-    
-    $validatedData = $request->validate([
-        'full_name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-        'phone' => 'required|string|max:20',
-        'country' => 'required|string|max:255',
-        'city' => 'required|string|max:255',
-        'province' => 'required|string|max:255',
-    ]);
-    
-    $user->update([
-        'name' => $validatedData['full_name'],
-        'email' => $validatedData['email'],
-        'phone' => $validatedData['phone'],
-        'country' => $validatedData['country'],
-        'city' => $validatedData['city'],
-        'province' => $validatedData['province'],
-    ]);
-    
-    return redirect()->back()->with('success', 'Profile updated successfully.');
-}
+    // Update user profile information
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        
+        $validatedData = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'phone' => 'required|string|max:20',
+            'country' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+        ]);
+        
+        $user->update([
+            'name' => $validatedData['full_name'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone'],
+            'country' => $validatedData['country'],
+            'city' => $validatedData['city'],
+            'province' => $validatedData['province'],
+        ]);
+        
+        return redirect()->back()->with('success', 'Profile updated successfully.');
+    }
 
-    
-    /**
-     * Update user profile image.
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Update user profile image
     public function updateImage(Request $request)
     {
         $user = Auth::user();
@@ -82,11 +67,7 @@ public function update(Request $request)
         return redirect()->back()->with('success', 'Profile picture updated successfully.');
     }
 
-    /**
-     * Delete user profile image.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Delete user profile image
     public function deleteImage()
     {
         $user = Auth::user();
@@ -99,12 +80,7 @@ public function update(Request $request)
         return redirect()->back()->with('success', 'Profile picture deleted successfully.');
     }
 
-    /**
-     * Update the user's password.
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
+    // Update the user's password
     public function updatePassword(Request $request): JsonResponse
     {
         if (!Auth::check()) {

@@ -35,7 +35,6 @@
 
 <body class=" bg-custoum-body min-h-screen flex items-center justify-center">
 
-
     <!-- main content -->
     <div class="container m-auto flex flex-col items-center justify-center">
         <div class="card p-6 sm:max-w-sm md:max-w-md w-full">
@@ -46,13 +45,10 @@
                     @csrf
                     <p class="block mb-2 ms-1 text-lg font-medium text-login">Login</p>
 
-
-
                     @if (session('success'))
                         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative my-2"
-                            role="alert">
-                            <strong class="font-bold">Success!</strong>
-                            <span class="block sm:inline"> {{ session('success') }}</span>
+                            role="alert"><strong class="font-bold">Success!</strong><span class="block sm:inline">
+                                {{ session('success') }}</span>
                         </div>
                     @endif
 
@@ -149,18 +145,13 @@
     <!-- end main content -->
 
 
-
-
     <!-- scripts assets -->
-
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- === End jQuery === -->
-
     <!-- === Flowbite JS === -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <!-- === End Flowbite JS === -->
-
     <!-- === Custom JS === -->
     <script src="assets/js/showpass.js"></script>
     <!-- === End Custom JS === -->

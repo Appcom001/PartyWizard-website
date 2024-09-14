@@ -7,12 +7,7 @@ use App\Models\ProblemReport;
 
 class ProblemReportController extends Controller
 {
-    /**
-     * Store a newly created problem report in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Store a newly created problem report in storage
     public function store(Request $request)
     {
         $validatedData = $request->validate([

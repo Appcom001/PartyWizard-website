@@ -17,14 +17,11 @@ class ProductReview extends Model
         'status' => 'active',
     ];
 
-
-    // Define relationship with User model
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    // Define relationship with Product model
+    
     public function product()
     {
         return $this->belongsTo(Product::class);

@@ -54,7 +54,8 @@
 
                     </div>
 
-                    <a href="{{ route('login') }}" class="text-custom-orange underline hover:text-gray-500 duration-300 text-sm">Skip, I'll
+                    <a href="{{ route('login') }}"
+                        class="text-custom-orange underline hover:text-gray-500 duration-300 text-sm">Skip, I'll
                         confirm later</a>
                 </div>
 
@@ -62,7 +63,8 @@
                     <p class="pb-2">Did not receive the email? Check your spam filter.</p>
                     <p class="pb-2">Or</p>
 
-                    <a href="{{ route('password.request') }}" class="text-custom-orange text-sm underline hover:text-gray-500 duration-300 pt-4">Try
+                    <a href="{{ route('password.request') }}"
+                        class="text-custom-orange text-sm underline hover:text-gray-500 duration-300 pt-4">Try
                         another email address</a>
                 </div>
 

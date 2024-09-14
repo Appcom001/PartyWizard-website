@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Crypt;
 
 class PasswordResetMail extends Mailable
 {
@@ -13,23 +15,14 @@ class PasswordResetMail extends Mailable
     public $user;
     public $actionUrl;
 
-    /**
-     * Create a new message instance.
-     *
-     * @param User $user
-     * @param string $token
-     */
+    // Constructor to initialize the mail with user and token
     public function __construct(User $user, string $token)
     {
         $this->user = $user;
         $this->actionUrl = $this->generateActionUrl($token, $user->email);
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
+    // Build the email message
     public function build()
     {
         return $this->view('vendor.notifications.email')
@@ -48,13 +41,7 @@ class PasswordResetMail extends Mailable
             ]);
     }
 
-    /**
-     * Generate the action URL for password reset.
-     *
-     * @param string $token
-     * @param string $email
-     * @return string
-     */
+    // Generate the action URL for password reset
     private function generateActionUrl(string $token, string $email): string
     {
         return url(route('password.reset', [

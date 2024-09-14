@@ -7,34 +7,21 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the categories.
-     *
-     * @return \Illuminate\View\View
-     */
+    // Display a listing of the categories
     public function index()
     {
         $categories = Category::all();
         return view('categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new category.
-     *
-     * @return \Illuminate\View\View
-     */
+    // Show form to create a new category
     public function create()
     {
         $parentCategories = Category::where('is_parent', 1)->get();
         return view('categories.create', compact('parentCategories'));
     }
 
-    /**
-     * Store a newly created category in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Store a new category in the database
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -49,25 +36,14 @@ class CategoryController extends Controller
             ->with('success', 'Category added successfully');
     }
 
-    /**
-     * Show the form for editing the specified category.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\View\View
-     */
+    // Show form to edit an existing category
     public function edit(Category $category)
     {
         $parentCategories = Category::where('is_parent', 1)->get();
         return view('categories.edit', compact('category', 'parentCategories'));
     }
 
-    /**
-     * Update the specified category in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Update the category in the database
     public function update(Request $request, Category $category)
     {
         $validatedData = $request->validate([
@@ -82,15 +58,11 @@ class CategoryController extends Controller
             ->with('success', 'Category updated successfully');
     }
 
-    /**
-     * Remove the specified category from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Delete a category from the database
     public function destroy(Category $category)
     {
         $category->delete();
+
         return redirect()->route('categories.index')
             ->with('success', 'Category deleted successfully');
     }

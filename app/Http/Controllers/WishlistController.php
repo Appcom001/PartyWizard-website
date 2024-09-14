@@ -8,27 +8,19 @@ use App\Models\Product;
 
 class WishlistController extends Controller
 {
-    /**
-     * Add a product to the wishlist.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Add a product to the wishlist
     public function store(Request $request)
     {
         $user_id = auth()->id();
         $product_id = $request->input('product_id');
-
         $product = Product::findOrFail($product_id);
 
+        // Check if the product is already in the wishlist
         $existingWishlistItem = Wishlist::where('product_id', $product_id)
                                         ->where('user_id', $user_id)
                                         ->first();
 
-        if ($existingWishlistItem) {
-            return redirect()->back()->with('info', 'Product already in wishlist.');
-        }
-
+        // Create a new wishlist item
         Wishlist::create([
             'product_id' => $product_id,
             'user_id' => $user_id,
@@ -38,12 +30,7 @@ class WishlistController extends Controller
         return redirect()->back()->with('success', 'Product added to wishlist.');
     }
 
-    /**
-     * Remove a product from the wishlist.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Remove a product from the wishlist
     public function destroy($id)
     {
         $wishlistItem = Wishlist::findOrFail($id);
@@ -52,12 +39,7 @@ class WishlistController extends Controller
         return redirect()->back()->with('success', 'Item removed from wishlist.');
     }
 
-    /**
-     * Toggle a product in the wishlist.
-     *
-     * @param  int  $productId
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Toggle a product in the wishlist
     public function toggle($productId)
     {
         $user = auth()->user();

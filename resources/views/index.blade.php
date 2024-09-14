@@ -4,11 +4,9 @@
     <!-- main -->
     <main>
         <div class="sm:ml-64 mlcustom">
-            <div class=" px-4 pt-2.5 mt-3 ">
-
                 <!-- first row in website -->
+            <div class=" px-4 pt-2.5 mt-3 ">
                 <section>
-
                     <!--  mobile view only  -->
                     <form class="flex items-center w-full  sm:hidden flex mb-5">
                         <label for="voice-search" class="sr-only">Search</label>
@@ -70,9 +68,7 @@
                     </div>
 
                 </section>
-
             </div>
-
             <!-- end first row in website -->
 
 
@@ -91,8 +87,11 @@
                                     {{-- Product Wishlist Icon --}}
                                     <form action="{{ route('wishlist.toggle', $product->id) }}" method="POST"
                                         class="relative">
-                                        <img class="w-full p-2" src="{{ asset('assets/' . $product->photo) }}"
-                                            alt="{{ $product->title }}" />
+                                        <img class="w-full p-2"
+                                            src="{{ asset('storage/product_images/' . $product->photo) }}"
+                                            alt="{{ $product->title }}"
+                                            style="
+                                            height: 240px;" />
                                         @csrf
 
                                         {{-- Check if the product is in the wishlist --}}
@@ -123,14 +122,13 @@
                                 <div class="px-2 pb-0 block">
                                     <a href="{{ route('products.show', $product->id) }}"
                                         class="text-md font-semibold text-gray-700 hover:underline dark:text-white">
-                                        {{ $product->title }}
+                                        {{ Str::limit($product->title, 13) }}
                                     </a>
                                     <div class="flex items-center justify-between my-1">
                                         <div class="price text-custom-orange font-semibold">${{ $product->price }}</div>
                                         <div class="not text-gray-300 text-xs">{{ $product->model_number }}</div>
                                     </div>
                                     <div class="buy flex items-center justify-between">
-                                        <!-- زر الأيقونة الذي يعمل كزر "إضافة إلى السلة" -->
                                         <div
                                             class="icon border-custom-orange w-9 h-9 rounded-md flex items-center justify-center hover:bg-gray-200 duration:300">
                                             <form action="{{ route('cart.add') }}" method="POST"
@@ -191,40 +189,53 @@
                         <div class="flex flex-col gap-3 mt-5">
                             @forelse ($wishlistItems as $item)
                                 <div
-                                    class="item-fv bg-white shadow-sm rounded-lg p-1 py-2 h-auto w-full flex items-center justify-between gap-3">
+                                    class="w-1/3 item-fv bg-white shadow-sm rounded-lg p-1 py-2 h-auto w-full flex items-center justify-between gap-3">
                                     <div class="img">
                                         <img class="sm:w-24 rounded-lg"
-                                            src="{{ asset('assets/' . $item->product->photo) }}" alt="">
+                                            src="{{ asset('storage/product_images/' . $item->product->photo) }}"
+                                            alt="">
                                     </div>
-                                    <div class="content flex flex-col item-start me-3">
-                                        <p class="text-gray-500 text-xs font-medium">{{ $item->product->title }}</p>
-                                        <div class="flex items-center justify-between my-3">
-                                            <div class="price text-xs text-custom-blue font-semibold">
-                                                {{ $item->product->price }} USD</div>
 
-                                            <div class="flex items-center ">
-                                                <svg class="w-3 h-3 text-yellow-300 me-1" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                    viewBox="0 0 22 20">
-                                                    <path
-                                                        d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                                </svg>
+                                    <div class="flex items-center w-2/3 justify-between">
+                                        <div class="content flex flex-col item-start me-3">
+                                            <p class="text-gray-500 text-xs font-medium">
+                                                {{ Str::limit($item->product->title, 13) }} </p>
+                                            <div class="flex items-center justify-between my-3">
+                                                <div class="price text-xs text-custom-blue font-semibold">
+                                                    {{ $item->product->price }} USD</div>
 
-                                                <p class=" text-xs font-normal text-gray-500 ">4.8 (225)</p>
+
+                                            </div>
+                                            <div class="buy flex items-center justify-between gap-3">
+                                                <!-- Remove from wishlist -->
+                                                <form action="{{ route('wishlist.remove', $item->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="icon border hover:bg-gray-200 duration-300 w-8 h-8 rounded-md flex items-center justify-center">
+                                                        <img width="17" height="17"
+                                                            src="{{ asset('assets/images/trash.svg') }}" alt="">
+                                                    </button>
+                                                </form>
 
                                             </div>
                                         </div>
-                                        <div class="buy flex items-center justify-between gap-3">
-                                            <!-- Remove from wishlist -->
-                                            <form action="{{ route('wishlist.remove', $item->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="icon border hover:bg-gray-200 duration-300 w-8 h-8 rounded-md flex items-center justify-center">
-                                                    <img width="17" height="17"
-                                                        src="{{ asset('assets/images/trash.svg') }}" alt="">
-                                                </button>
-                                            </form>
+                                        <div class="flex flex-col justify-between h-20">
+
+                                            <div class="flex items-center ">
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <svg class="w-3 h-3 {{ $i <= $product->average_rating ? 'text-yellow-300' : 'text-gray-300' }}"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor" viewBox="0 0 22 20">
+                                                        <path
+                                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
+                                                    </svg>
+                                                @endfor
+                                                <p class=" text-xs font-normal text-gray-500 ">
+                                                    ({{ $product->average_rating }})
+                                                </p>
+                                            </div>
+
                                             <!-- Add to cart -->
                                             <form action="{{ route('cart.add') }}" method="POST">
                                                 @csrf
@@ -234,6 +245,7 @@
                                                     Add To Cart
                                                 </button>
                                             </form>
+
                                         </div>
                                     </div>
                                 </div>

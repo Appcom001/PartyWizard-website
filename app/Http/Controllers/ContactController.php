@@ -7,22 +7,13 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    /**
-     * Display the contact form.
-     *
-     * @return \Illuminate\View\View
-     */
+    // Display the contact form
     public function index()
     {
         return view('help');
     }
 
-    /**
-     * Store a new contact message.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Store a new contact message
     public function store(Request $request)
     {
         $validatedData = $request->validate([

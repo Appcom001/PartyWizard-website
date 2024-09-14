@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Party Wizard - Sign Up</title>
 
-     <!-- === Favicon === -->
+    <!-- === Favicon === -->
     <link rel="shortcut icon" type="image/png" href="assets/images/logo_out_text.svg">
     <!-- === End Favicon === -->
 
@@ -45,37 +45,43 @@
                 <form method="POST" action="{{ route('register.post') }}" class="w-full">
                     @csrf
                     <label for="username" class="block mb-2 ms-1 text-lg font-medium text-login">Sign Up</label>
-                
+
                     <!-- Username Field -->
                     <div class="flex mb-4">
-                        <span class="inline-flex items-center px-2 text-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
-                            <img class="w-8 p-2 bg-custoum-orange-50 rounded-md" src="assets/images/loginreg/Icon feather-user.svg" alt="Username Icon">
+                        <span
+                            class="inline-flex items-center px-2 text-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
+                            <img class="w-8 p-2 bg-custoum-orange-50 rounded-md"
+                                src="assets/images/loginreg/Icon feather-user.svg" alt="Username Icon">
                         </span>
                         <input type="text" id="username" name="name"
                             class="focus:outline-none focus:ring-0 text-gray-500 border-rad-custom-input border-custom-input bg-white block flex-1 min-w-0 w-full text-sm text-gray-900 p-4 rounded-r-xl"
                             placeholder="Username" autocomplete="off" value="{{ old('name') }}">
                     </div>
                     @error('name')
-                    <p class="text-red-500 text-xs -mt-3 mb-3">{{ $message }}</p>
+                        <p class="text-red-500 text-xs -mt-3 mb-3">{{ $message }}</p>
                     @enderror
-                
+
                     <!-- Email Field -->
                     <div class="flex mb-4">
-                        <span class="inline-flex items-center px-2 text-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
-                            <img class="w-8 p-2 bg-custoum-orange-50 rounded-md" src="assets/images/loginreg/email.svg" alt="Email Icon">
+                        <span
+                            class="inline-flex items-center px-2 text-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
+                            <img class="w-8 p-2 bg-custoum-orange-50 rounded-md" src="assets/images/loginreg/email.svg"
+                                alt="Email Icon">
                         </span>
                         <input type="email" id="email" name="email"
                             class="focus:outline-none focus:ring-0 text-gray-500 border-rad-custom-input border-custom-input bg-white block flex-1 min-w-0 w-full text-sm text-gray-900 p-4 rounded-r-xl"
                             placeholder="E-mail" autocomplete="off" value="{{ old('email') }}">
                     </div>
                     @error('email')
-                    <p class="text-red-500 text-xs -mt-3 mb-3">{{ $message }}</p>
+                        <p class="text-red-500 text-xs -mt-3 mb-3">{{ $message }}</p>
                     @enderror
-                
+
                     <!-- Password Field -->
                     <div class="flex mb-4 password-container">
-                        <span class="inline-flex items-center px-2 text-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
-                            <img class="w-9 p-2 bg-custoum-orange-50 rounded-md" src="assets/images/loginreg/pass.svg" alt="Password Icon">
+                        <span
+                            class="inline-flex items-center px-2 text-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
+                            <img class="w-9 p-2 bg-custoum-orange-50 rounded-md" src="assets/images/loginreg/pass.svg"
+                                alt="Password Icon">
                         </span>
                         <div class="relative flex-1">
                             <input type="password" id="password" name="password"
@@ -88,13 +94,15 @@
                         </div>
                     </div>
                     @error('password')
-                    <p class="text-red-500 text-xs -mt-3 mb-3">{{ $message }}</p>
+                        <p class="text-red-500 text-xs -mt-3 mb-3">{{ $message }}</p>
                     @enderror
-                
+
                     <!-- Confirm Password Field -->
                     <div class="flex mb-4 password-container">
-                        <span class="inline-flex items-center px-2 text-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
-                            <img class="w-9 p-2 bg-custoum-orange-50 rounded-md" src="assets/images/loginreg/pass.svg" alt="Password Icon">
+                        <span
+                            class="inline-flex items-center px-2 text-sm border-span-input-log border-custom-input bg-white rounded-l-xl">
+                            <img class="w-9 p-2 bg-custoum-orange-50 rounded-md" src="assets/images/loginreg/pass.svg"
+                                alt="Password Icon">
                         </span>
                         <div class="relative flex-1">
                             <input type="password" id="confirm-password" name="password_confirmation"
@@ -107,39 +115,44 @@
                         </div>
                     </div>
                     @error('password_confirmation')
-                    <p class="text-red-500 text-xs -mt-3 mb-3">{{ $message }}</p>
+                        <p class="text-red-500 text-xs -mt-3 mb-3">{{ $message }}</p>
                     @enderror
-                
+
                     <!-- Forgot Password -->
                     <div class="text-sm flex items-center gap-1.5 justify-end mt-2 mb-4 text-gray-400">
                         Already have an account?
-                        <a href="{{ route('login') }}" class="text-custom-orange hover:text-gray-400 duration-300 underline">Login</a>
+                        <a href="{{ route('login') }}"
+                            class="text-custom-orange hover:text-gray-400 duration-300 underline">Login</a>
                     </div>
-                
+
                     <button type="submit"
-                        class="w-full bg-custom-orange text-white py-3.5 shadow-custom px-4 rounded-full hover:bg-blue-600 focus:outline-none">Sign Up</button>
-                
+                        class="w-full bg-custom-orange text-white py-3.5 shadow-custom px-4 rounded-full hover:bg-blue-600 focus:outline-none">Sign
+                        Up</button>
+
                     <div class="text-sm flex justify-center text-gray-500 my-4 mb-4">
                         <a href="#">Or Sign up with..</a>
                     </div>
-                
+
                     <div class="flex items-center justify-center gap-3 text-gray-500 mt-4">
                         <a href="#"
                             class="hover:bg-gray-100 duration-300 text-gray-500 border-custom-input rounded-xl w-1/3 py-3 flex items-center justify-center">
-                            <img src="assets/images/loginreg/Icon zocial-facebook.svg" alt="Facebook Icon" class="w-5 h-5">
+                            <img src="assets/images/loginreg/Icon zocial-facebook.svg" alt="Facebook Icon"
+                                class="w-5 h-5">
                         </a>
                         <a href="#"
                             class="hover:bg-gray-100 duration-300 text-gray-500 border-custom-input rounded-xl w-1/3 py-3 flex items-center justify-center">
-                            <img src="assets/images/loginreg/Icon awesome-google.svg" alt="Google Icon" class="w-5 h-5">
+                            <img src="assets/images/loginreg/Icon awesome-google.svg" alt="Google Icon"
+                                class="w-5 h-5">
                         </a>
                         <a href="#"
                             class="hover:bg-gray-100 duration-300 text-gray-500 border-custom-input rounded-xl w-1/3 py-3 flex items-center justify-center">
-                            <img src="assets/images/loginreg/Icon awesome-twitter.svg" alt="Twitter Icon" class="w-5 h-5">
+                            <img src="assets/images/loginreg/Icon awesome-twitter.svg" alt="Twitter Icon"
+                                class="w-5 h-5">
                         </a>
                     </div>
                 </form>
 
-                
+
             </div>
         </div>
     </div>

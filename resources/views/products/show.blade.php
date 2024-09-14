@@ -39,6 +39,7 @@
                         </div>
                         <!-- end Breadcrumbs Wrapper -->
 
+
                         <!-- Product Section Wrapper -->
                         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
 
@@ -54,8 +55,8 @@
                                         <!-- Dynamic Image -->
                                         <div
                                             class="h-64 rounded-lg bg-gray-100 mb-4 flex items-center justify-center w-full">
-                                            <img src="{{ asset('assets/' . $product->photo) }}" alt="Current Image"
-                                                class="object-cover w-full h-full rounded-lg">
+                                            <img src="{{ asset('storage/product_images/' . $product->photo) }}"
+                                                alt="Current Image" class="object-cover w-full h-full rounded-lg">
                                         </div>
                                     </div>
                                     <!-- ./ Main Image Display -->
@@ -155,6 +156,7 @@
 
                         </div>
                         <!-- end Product Section Wrapper -->
+
 
                         <!-- About and Review Section -->
                         <div class="pt-8 bg-white antialiased px-4">
@@ -554,41 +556,48 @@
                     </div>
                 </div>
 
-                <div class="owl-carousel owl-theme mt-10" id="productCarousel">
-                    <!-- Your carousel items here -->
+                @if ($similarProducts->isEmpty())
+                    <div class="text-center my-5">
+                        <p class="text-custom-orange text-sm font-semibold">
+                            No similar products available
+                        </p>
+                    </div>
+                @else
+                    <div class="owl-carousel owl-theme mt-10" id="productCarousel">
+                        @foreach ($similarProducts->unique() as $similarProduct)
+                            <div class="item">
+                                <div class="rounded-lg bg-white py-0 shadow-sm">
+                                    <div class="w-full relative">
+                                        <a href="{{ route('products.show', $similarProduct->id) }}">
+                                            <img class="w-full p-2"
+                                                src="{{ asset('storage/product_images/' . $similarProduct->photo) }}"
+                                                alt="{{ $similarProduct->title }}" style="height: 150px" />
+                                            <div
+                                                class="absolute top-5 right-5 bg-white rounded-full hover:bg-red-400 duration-300 flex items-center justify-center w-8 h-8 bg-white shadow-md">
+                                                <img class="w-6 h-6 p-1" src="{{ asset('assets/images/Vector2.svg') }}"
+                                                    alt="" />
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="px-2 pb-0 block">
+                                        <a href="{{ route('products.show', $similarProduct->id) }}"
+                                            class="text-md font-semibold text-gray-700 hover:underline dark:text-white">
+                                            {{ $similarProduct->title }}
+                                        </a>
 
-                    @foreach ($similarProducts as $product)
-                        <div class="item">
-                            <div class="rounded-lg bg-white py-0 shadow-sm">
-                                <div class="w-full relative">
-                                    <a href="{{ route('products.show', $product->id) }}">
-                                        <img class="w-full p-2" src="{{ asset('assets/' . $product->photo) }}"
-                                            alt="{{ $product->title }}" />
-                                        <div
-                                            class="absolute top-5 right-5 bg-white rounded-full hover:bg-red-400 duration-300 flex items-center justify-center w-8 h-8 bg-white shadow-md">
-                                            <img class="w-6 h-6 p-1" src="{{ asset('assets/images/Vector2.svg') }}"
-                                                alt="" />
+                                        <div class="flex items-center justify-between my-1 pb-4">
+                                            <div class="price text-custom-orange font-semibold">
+                                                ${{ $similarProduct->price }}</div>
+                                            <div class="not text-gray-300 text-xs">
+                                                {{ $similarProduct->model_number ?? 'Not Specified' }}</div>
                                         </div>
-                                    </a>
-                                </div>
-                                <div class="px-2 pb-0 block">
-                                    <a href="{{ route('products.show', $product->id) }}"
-                                        class="text-md font-semibold text-gray-700 hover:underline dark:text-white">
-                                        {{ $product->title }}
-                                    </a>
-
-                                    <div class="flex items-center justify-between my-1 pb-4">
-                                        <div class="price text-custom-orange font-semibold">${{ $product->price }}</div>
-                                        <div class="not text-gray-300 text-xs">
-                                            {{ $product->model_number ?? 'Not Specified' }}</div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
+                @endif
 
-
-                </div>
 
             </div>
 
@@ -603,9 +612,10 @@
     <!-- === End partial  === -->
     <!-- === Carousel === -->
     <script src="https://cdn.jsdelivr.net/npm/owl.carousel@2.3.4/dist/owl.carousel.min.js"></script>
-    <script src="assets/js/carousel.js"></script>
+    <script src="{{ asset('assets/js/carousel.js') }}"></script>
     <!-- === End Carousel === -->
     <!-- === Custom JS === -->
-    <script src="assets/js/carousel_pro.js"></script>
+    <script src="{{ asset('assets/js/carousel_pro.js') }}"></script>
+
     <!-- === End Custom JS === -->
 @endsection

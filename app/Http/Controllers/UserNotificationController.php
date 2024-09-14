@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserNotificationController extends Controller
 {
+    // Update user notification settings
     public function update(Request $request)
     {
         $user = Auth::user();

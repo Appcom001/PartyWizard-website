@@ -263,6 +263,7 @@
                                     </p>
                                     <div class="mt-4">
                                         <span class="text-gray-500 text-sm pb-10">Alzahab_support@mail.com</span>
+                                        <br><br>
                                         <span class="phone text-gray-500 text-sm pt-3"> (448)468-6941</span>
                                     </div>
                                 </div>
@@ -276,7 +277,6 @@
                 </div>
 
             </div>
-
         </div>
     </main>
     <!-- end main -->

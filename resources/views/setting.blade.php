@@ -41,14 +41,13 @@
 
                         @auth
 
-                            <!-- general -->
-                            <div class="hidden rounded-lg" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+                        <!-- general -->
+                        <div class="hidden rounded-lg" id="faq" role="tabpanel" aria-labelledby="faq-tab">
                                 <div class="w-full max-w-7xl ">
                                     <div
                                         class="profileuserimage flex items-center xs:justify-between sm:justify-start sm:gap-16 my-7">
                                         <li class="relative">
-                                            <a href="#"
-                                                class="flex items-center  ">
+                                            <a href="#" class="flex items-center  ">
                                                 <div class="w-12 h-12 flex items-center justify-start">
                                                     <img class="{{ $user->photo ? 'w-14 h-12 rounded-full' : 'w-12 h-12 p-2 rounded-full bg-gray-200' }}"
                                                         src="{{ $user->photo ? asset('storage/' . $user->photo) : asset('assets/images/Icon feather-user(1).svg') }}"
@@ -162,12 +161,10 @@
                             </div>
                         </div>
 
-
-
                         <!-- Password -->
                         <div class="hidden p-4 rounded-lg" id="privacy-policy" role="tabpanel"
                             aria-labelledby="privacy-policy-tab">
-                            <form id="update-password-form" class="w-full" >
+                            <form id="update-password-form" class="w-full">
                                 @csrf
 
                                 <div class="flex items-center gap-3 w-full mb-6 ">
@@ -213,171 +210,75 @@
                             </form>
 
                         </div>
-                        <!-- Password AJAX -->
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                                const form = document.getElementById('update-password-form');
-                                const responseMessage = document.getElementById('response-message');
-
-                                form.addEventListener('submit', function(event) {
-                                    event.preventDefault(); // Prevent default form submission
-
-                                    const formData = new FormData(form);
-
-                                    fetch('{{ route('setting.updatePassword') }}', {
-                                            method: 'POST',
-                                            body: formData,
-                                            headers: {
-                                                'X-Requested-With': 'XMLHttpRequest',
-                                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
-                                                    .getAttribute('content')
-                                            }
-                                        })
-                                        .then(response => response.json())
-                                        .then(data => {
-                                            if (data.status === 'success') {
-                                                responseMessage.innerHTML =
-                                                    `<div class="text-green-500">${data.message}</div>`;
-                                                form.reset(); // Reset the form
-                                            } else {
-                                                responseMessage.innerHTML =
-                                                    `<div class="text-red-500">${data.message}</div>`;
-                                            }
-                                        })
-                                        .catch(error => {
-                                            console.error('Error:', error);
-                                            responseMessage.innerHTML =
-                                                `<div class="text-red-500">An unexpected error occurred.</div>`;
-                                        });
-                                });
-                            });
-                        </script>
 
 
+                        <!-- Notifications Section -->
+                        <div class="hidden p-4 rounded-lg w-full" id="contact-us" role="tabpanel"
+                            aria-labelledby="contact-us-tab">
+                            <form action="{{ route('notifications.update') }}" method="POST"
+                                class="space-y-8 w-full md:w-2/3">
+                                @csrf
+                                <!-- Product Updates -->
+                                <div class="flex items-center justify-between border-b-2 pb-5">
+                                    <div class="flex flex-col gap-2">
+                                        <span class="text-md font-semibold text-gray-900">Product updates</span>
+                                        <span class="text-sm font-normal text-gray-500">
+                                            Receive a notification about updates on the products you are interested in
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label class="switch modern-switch">
+                                            <input type="checkbox" name="product_updates"
+                                                @if (auth()->user()->notifications()->where('type', 'Product Updates')->first()->enabled ?? false) checked @endif>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
 
-<style>
-    /* Modern Switch Style */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
-}
+                                <!-- Comments -->
+                                <div class="flex items-center justify-between border-b-2 pb-5">
+                                    <div class="flex flex-col gap-2">
+                                        <span class="text-md font-semibold text-gray-900">Comments</span>
+                                        <span class="text-sm font-normal text-gray-500">
+                                            Receive a notification whenever someone makes a comment on a product you are
+                                            interested in
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label class="switch modern-switch">
+                                            <input type="checkbox" name="comments"
+                                                @if (auth()->user()->notifications()->where('type', 'Comments')->first()->enabled ?? false) checked @endif>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+                                <!-- Checkout Product -->
+                                <div class="flex items-center justify-between border-b-2 pb-5">
+                                    <div class="flex flex-col gap-2">
+                                        <span class="text-md font-semibold text-gray-900">Checkout Product</span>
+                                        <span class="text-sm font-normal text-gray-500">
+                                            Receive a notification whenever you make a successful checkout
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <label class="switch modern-switch">
+                                            <input type="checkbox" name="checkout_product"
+                                                @if (auth()->user()->notifications()->where('type', 'Checkout Product')->first()->enabled ?? false) checked @endif>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                </div>
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 20px;
-  width: 20px;
-  left: 4px;
-  bottom: 2px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #4CAF50; /* لون الخلفية عند التفعيل */
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px); /* تحريك الدائرة عند التفعيل */
-}
-
-/* إضافة تأثير عند الضغط */
-input:focus + .slider {
-  box-shadow: 0 0 1px #4CAF50;
-}
-
-/* تخصيص الشكل لـ Round Slider */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-</style>
-
-                   <!-- Notifications Section -->
-                   <div class="hidden p-4 rounded-lg w-full" id="contact-us" role="tabpanel" aria-labelledby="contact-us-tab">
-                    <form action="{{ route('notifications.update') }}" method="POST" class="space-y-8 w-full md:w-2/3">
-                        @csrf
-                        <!-- Product Updates -->
-                        <div class="flex items-center justify-between border-b-2 pb-5">
-                            <div class="flex flex-col gap-2">
-                                <span class="text-md font-semibold text-gray-900">Product updates</span>
-                                <span class="text-sm font-normal text-gray-500">
-                                    Receive a notification about updates on the products you are interested in
-                                </span>
-                            </div>
-                            <div>
-                                <label class="switch modern-switch">
-                                    <input type="checkbox" name="product_updates" @if (auth()->user()->notifications()->where('type', 'Product Updates')->first()->enabled ?? false) checked @endif>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
+                                <!-- Submit Button -->
+                                <button type="submit"
+                                    class="flex items-center justify-center rounded-full bg-custom-orange px-14 py-3 text-md font-medium text-white shadow-custom hover:bg-orange-700 focus:outline-none focus:ring-none">
+                                    Save Changes
+                                </button>
+                            </form>
                         </div>
-                
-                        <!-- Comments -->
-                        <div class="flex items-center justify-between border-b-2 pb-5">
-                            <div class="flex flex-col gap-2">
-                                <span class="text-md font-semibold text-gray-900">Comments</span>
-                                <span class="text-sm font-normal text-gray-500">
-                                    Receive a notification whenever someone makes a comment on a product you are interested in
-                                </span>
-                            </div>
-                            <div>
-                                <label class="switch modern-switch">
-                                    <input type="checkbox" name="comments" @if (auth()->user()->notifications()->where('type', 'Comments')->first()->enabled ?? false) checked @endif>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                        </div>
-                
-                        <!-- Checkout Product -->
-                        <div class="flex items-center justify-between border-b-2 pb-5">
-                            <div class="flex flex-col gap-2">
-                                <span class="text-md font-semibold text-gray-900">Checkout Product</span>
-                                <span class="text-sm font-normal text-gray-500">
-                                    Receive a notification whenever you make a successful checkout
-                                </span>
-                            </div>
-                            <div>
-                                <label class="switch modern-switch">
-                                    <input type="checkbox" name="checkout_product" @if (auth()->user()->notifications()->where('type', 'Checkout Product')->first()->enabled ?? false) checked @endif>
-                                    <span class="slider round"></span>
-                                </label>
-                            </div>
-                        </div>
-                
-                        <!-- Submit Button -->
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
-                    </form>
-                </div>
-                
-
-                
-
                     @else
+                    
                         <div class="flex justify-center items-center py-20">
                             <span class="text-gray-500 text-md  font-medium text-center">
                                 You need to log in to access this page. <br> Please log in with your account to access the
@@ -389,6 +290,7 @@ input:focus + .slider {
 
                             </span>
                         </div>
+
                     @endauth
 
                 </div>
@@ -402,5 +304,43 @@ input:focus + .slider {
 @section('js')
     <!-- === tabs === -->
     <script src="{{ asset('assets/js/tabs.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('update-password-form');
+            const responseMessage = document.getElementById('response-message');
+
+            form.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(form);
+
+                fetch('{{ route('setting.updatePassword') }}', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .getAttribute('content')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            responseMessage.innerHTML =
+                                `<div class="text-green-500">${data.message}</div>`;
+                            form.reset(); // Reset the form
+                        } else {
+                            responseMessage.innerHTML =
+                                `<div class="text-red-500">${data.message}</div>`;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        responseMessage.innerHTML =
+                            `<div class="text-red-500">An unexpected error occurred.</div>`;
+                    });
+            });
+        });
+    </script>
     <!-- === End Custom JS === -->
 @endsection

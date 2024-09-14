@@ -7,12 +7,7 @@ use Illuminate\Http\Request;
 
 class ProductReviewController extends Controller
 {
-    /**
-     * Store a newly created product review in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Store a newly created product review
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -29,12 +24,7 @@ class ProductReviewController extends Controller
         return redirect()->back()->with('success', 'Review added successfully.');
     }
 
-    /**
-     * Display the specified product's reviews.
-     *
-     * @param  int  $productId
-     * @return \Illuminate\View\View
-     */
+    // Display the specified product's reviews
     public function showReviews($productId)
     {
         $initialReviewCount = 2;

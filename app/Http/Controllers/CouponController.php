@@ -8,12 +8,7 @@ use Illuminate\Http\Request;
 
 class CouponController extends Controller
 {
-    /**
-     * Apply a coupon to the cart.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    // Apply a coupon to the cart
     public function apply(Request $request)
     {
         $request->validate([
@@ -45,19 +40,14 @@ class CouponController extends Controller
         return redirect()->back()->with('success', 'Promo code applied successfully!');
     }
 
-    /**
-     * Calculate the discount amount based on the coupon type and cart subtotal.
-     *
-     * @param  \App\Models\Coupon  $coupon
-     * @return float
-     */
+    // Calculate the discount amount based on the coupon type and cart subtotal
     private function calculateDiscount($coupon)
     {
         $subtotal = $this->getCartSubtotal();
 
         if ($coupon->type == 'percent') {
             $discount = $subtotal * ($coupon->value / 100);
-        } else { // 'fixed'
+        } else { 
             $discount = min($coupon->value, $subtotal);
         }
 
@@ -65,11 +55,7 @@ class CouponController extends Controller
         return min($discount, $subtotal);
     }
 
-    /**
-     * Get the cart subtotal for the current user.
-     *
-     * @return float
-     */
+    // Get the cart subtotal for the current user
     private function getCartSubtotal()
     {
         return CartItem::where('user_id', auth()->id())

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Party Wizard - @yield('title')</title>
+    <title>Party Wizard </title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logo_out_text.svg') }}">
@@ -349,55 +349,53 @@
 
         <!-- Dynamic Toast -->
         @if (session('success') || session('error') || session('warning'))
-            @php
-                $message = session('success') ?? (session('error') ?? session('warning'));
-                $messageType = session('success') ? 'success' : (session('error') ? 'error' : 'warning');
-                $bgColor =
-                    $messageType === 'success'
-                        ? 'bg-green-100'
-                        : ($messageType === 'error'
-                            ? 'bg-red-100'
-                            : 'bg-orange-50');
-                $textColor =
-                    $messageType === 'success'
-                        ? 'text-green-500'
-                        : ($messageType === 'error'
-                            ? 'text-red-500'
-                            : 'text-orange-500');
-                $icon =
-                    $messageType === 'success'
-                        ? 'sucsses.svg'
-                        : ($messageType === 'error'
-                            ? 'wrong.svg'
-                            : 'warning.svg');
-                $messageTitle =
-                    $messageType === 'success' ? 'Success' : ($messageType === 'error' ? 'Error!' : 'Oops!');
-            @endphp
-
-            <div id="toast-message"
-                style="position: absolute; top: 80px; right: 20px; z-index: 9999; transform: translateX(100%);"
-                class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-xl shadow-sm border border-gray-50 transition-transform duration-500 ease-in-out"
-                role="alert">
-                <div
-                    class="inline-flex items-center justify-center flex-shrink-0 w-10 h-10 {{ $textColor }} {{ $bgColor }} rounded-full">
-                    <img class="w-5 h-5" src="{{ asset('assets/images/' . $icon) }}"
-                        alt="{{ $messageTitle }} Icon">
-                    <span class="sr-only">{{ $messageTitle }} icon</span>
-                </div>
-                <div class="ms-3 text-sm font-normal">
-                    <p class="{{ $textColor }} text-sm font-medium">{{ $messageTitle }}</p>
-                    <span class="text-gray-500 text-xs font-normal">{{ $message }}</span>
-                </div>
-                <button type="button"
-                    class="ms-auto -mx-3 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
-                    aria-label="Close" onclick="this.parentElement.style.display='none'">
-                    <span class="sr-only">Close</span>
-                    <img class="w-3 h-3" src="{{ asset('assets/images/delete.svg') }}" alt="Close Icon">
-                </button>
+        @php
+            $message = session('success') ?? (session('error') ?? session('warning'));
+            $messageType = session('success') ? 'success' : (session('error') ? 'error' : 'warning');
+            $bgColor =
+                $messageType === 'success'
+                    ? 'bg-green-100'
+                    : ($messageType === 'error'
+                        ? 'bg-red-100'
+                        : 'bg-orange-50');
+            $textColor =
+                $messageType === 'success'
+                    ? 'text-green-500'
+                    : ($messageType === 'error'
+                        ? 'text-red-500'
+                        : 'text-yellow-400'); 
+            $icon =
+                $messageType === 'success'
+                    ? 'sucsses.svg'
+                    : ($messageType === 'error'
+                        ? 'wrong.svg'
+                        : 'warning.svg');
+            $messageTitle =
+                $messageType === 'success' ? 'Success' : ($messageType === 'error' ? 'Error!' : 'Oops!');
+        @endphp
+    
+        <div id="toast-message"
+            style="position: absolute; top: 80px; right: 20px; z-index: 9999; transform: translateX(100%);"
+            class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-xl shadow-sm border border-gray-50 transition-transform duration-500 ease-in-out"
+            role="alert">
+            <div
+                class="inline-flex items-center justify-center flex-shrink-0 w-10 h-10 {{ $textColor }} {{ $bgColor }} rounded-full">
+                <img class="w-5 h-5" src="{{ asset('assets/images/' . $icon) }}"
+                    alt="{{ $messageTitle }} Icon">
+                <span class="sr-only">{{ $messageTitle }} icon</span>
             </div>
-
-
-        @endif
+            <div class="ms-3 text-sm font-normal">
+                <p class="{{ $textColor }} text-sm font-medium">{{ $messageTitle }}</p>
+                <span class="text-gray-500 text-xs font-normal">{{ $message }}</span>
+            </div>
+            <button type="button"
+                class="ms-auto -mx-3 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8"
+                aria-label="Close" onclick="this.parentElement.style.display='none'">
+                <span class="sr-only">Close</span>
+                <img class="w-3 h-3" src="{{ asset('assets/images/delete.svg') }}" alt="Close Icon">
+            </button>
+        </div>
+    @endif
 
 
 

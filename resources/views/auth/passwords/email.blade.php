@@ -7,7 +7,7 @@
     <title>Party Wizard - Reset Password</title>
 
     <!-- === Favicon === -->
-    <link rel="shortcut icon" type="image/png" href="{{asset('assets/images/logo_out_text.svg')}}">
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/logo_out_text.svg') }}">
     <!-- === End Favicon === -->
 
     <!-- === Css === -->
